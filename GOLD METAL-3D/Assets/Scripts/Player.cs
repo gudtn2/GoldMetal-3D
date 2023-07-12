@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public Camera follwCamera;
     public GameManager manager;
 
+    public AudioSource jumpSound;
+
     public int ammo;
     public int coin;
     public int health;
@@ -141,6 +143,8 @@ public class Player : MonoBehaviour
             anim.SetTrigger("doJump");
 
             isJump = true;
+
+            jumpSound.Play();
         }
     }
 
