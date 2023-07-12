@@ -359,6 +359,7 @@
 "Assets/Scripts/Bullet.cs"
 "Assets/Scripts/Enemy.cs"
 "Assets/Scripts/Follow.cs"
+"Assets/Scripts/GameManager.cs"
 "Assets/Scripts/Grenade.cs"
 "Assets/Scripts/Item.cs"
 "Assets/Scripts/Missile.cs"
@@ -366,6 +367,7 @@
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/Player2.cs"
 "Assets/Scripts/Shop.cs"
+"Assets/Scripts/StartZone.cs"
 "Assets/Scripts/Weapon.cs"
 -langversion:9.0
 
