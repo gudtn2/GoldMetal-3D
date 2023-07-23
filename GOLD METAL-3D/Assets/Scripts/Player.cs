@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed;
+    public float SpeedChangeRate = 10.0f;
     public GameObject[] weapons;
     public bool[] hasWeapons;
     public GameObject[] grenades;
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     public GameObject grenadeObj;
     public Camera follwCamera;
     public GameManager manager;
+    private float _animationBlend;
 
     public AudioSource jumpSound;
 
@@ -49,6 +51,13 @@ public class Player : MonoBehaviour
     bool isShop;
     bool isDead;
 
+    private int _animIDSpeed;
+    private int _animIDX;
+    private int _animIDY;
+    private int _animIDGrounded;
+
+    private bool _hasAnimator;
+
     Vector3 moveVec;
     Vector3 dodgeVec;
 
@@ -70,8 +79,17 @@ public class Player : MonoBehaviour
         //PlayerPrefs.SetInt("MaxScore", 99999);
     }
 
+    private void Start()
+    {
+        _hasAnimator = TryGetComponent(out anim);
+        AssignAnimationIDs();
+    }
+
     void Update()
     {
+        _hasAnimator = TryGetComponent(out anim);
+
+
         GetInput();
         Move();
         turn();
@@ -98,6 +116,15 @@ public class Player : MonoBehaviour
         sDown2 = Input.GetButtonDown("Swap2");
         sDown3 = Input.GetButtonDown("Swap3");
     }
+    private void AssignAnimationIDs()
+    {
+        _animIDSpeed = Animator.StringToHash("Speed");
+        _animIDX = Animator.StringToHash("X");
+        _animIDY = Animator.StringToHash("Y");
+        _animIDGrounded = Animator.StringToHash("Grounded");    
+    }
+
+
     void Move()
     {
         moveVec = new Vector3(hAxis, 0, vAxis).normalized;
@@ -108,11 +135,26 @@ public class Player : MonoBehaviour
         if (isSwap || isReload ||!isFireReady && isDead)
             moveVec = Vector3.zero;
 
-        if(!isBorder)
-            transform.position += moveVec * speed * (wDown ? 0.3f : 1f) * Time.deltaTime;
+        float targetSpeed = speed * (wDown ? 0.3f : 1f);
+
+        if (moveVec == Vector3.zero)
+            targetSpeed = 0.0f;
+
+        if (!isBorder)
+            transform.position += moveVec * targetSpeed * Time.deltaTime;
 
         anim.SetBool("isRun", moveVec != Vector3.zero);
         anim.SetBool("isWalk", wDown);
+
+        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        if (_animationBlend < 0.01f) _animationBlend = 0f;
+
+        if (_hasAnimator)
+        {
+            anim.SetFloat(_animIDSpeed, _animationBlend);
+            anim.SetFloat(_animIDX, moveVec.x);
+            anim.SetFloat(_animIDY, moveVec.z);
+        }
     }
 
     void turn()
@@ -131,7 +173,10 @@ public class Player : MonoBehaviour
                 nextVec.y = 0;
                 transform.LookAt(transform.position + nextVec);
             }
+            anim.SetBool("Aiming", true);
         }
+        if (!fDown)
+            anim.SetBool("Aiming", false);
     }
 
     void Jump()
