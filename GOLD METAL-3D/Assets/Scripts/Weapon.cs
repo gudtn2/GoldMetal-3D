@@ -15,8 +15,8 @@ public class Weapon : MonoBehaviour
     public TrailRenderer trailEffect;
     public Transform bulletPos;
     public GameObject bullet;
-    public Transform bulletCasePos;
-    public GameObject bulletCase;
+    //public Transform bulletCasePos;
+    //public GameObject bulletCase;
 
     public void Use()
     {
@@ -62,12 +62,14 @@ public class Weapon : MonoBehaviour
         bulletRigid.velocity = bulletPos.forward * 50;
 
         yield return null;
-
+        
         // #2. ≈∫«« πË√‚
+        /*
         GameObject intantCase = Instantiate(bulletCase, bulletCasePos.position, bulletCasePos.rotation);
         Rigidbody caseRigid = intantBullet.GetComponent<Rigidbody>();
         Vector3 caseVec = bulletCasePos.forward * Random.Range(-3, -2) + Vector3.up * Random.Range(2, 3);
         caseRigid.AddForce(caseVec, ForceMode.Impulse);
         caseRigid.AddTorque(Vector3.up * 10, ForceMode.Impulse);
+        */
     }
 }

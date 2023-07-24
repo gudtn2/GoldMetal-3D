@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     bool isDamage;
     bool isShop;
     bool isDead;
+    bool isMove;
 
     private int _animIDSpeed;
     private int _animIDX;
@@ -81,6 +82,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        isMove = true;
         _hasAnimator = TryGetComponent(out anim);
         AssignAnimationIDs();
     }
@@ -89,11 +91,10 @@ public class Player : MonoBehaviour
     {
         _hasAnimator = TryGetComponent(out anim);
 
-
         GetInput();
         Move();
         turn();
-        Jump();
+        //Jump();
         Attack();
         Grenade();
         Reload();
@@ -110,7 +111,7 @@ public class Player : MonoBehaviour
         jDown = Input.GetButtonDown("Jump");
         fDown = Input.GetButton("Fire1");
         gDown = Input.GetButtonDown("Fire2");
-        rDown = Input.GetButton("Reload");
+        rDown = Input.GetButtonDown("Reload");
         iDown = Input.GetButtonDown("Interation");
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
@@ -127,34 +128,37 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        moveVec = new Vector3(hAxis, 0, vAxis).normalized;
-
-        if (isDodge)
-            moveVec = dodgeVec;
-
-        if (isSwap || isReload ||!isFireReady && isDead)
-            moveVec = Vector3.zero;
-
-        float targetSpeed = speed * (wDown ? 0.3f : 1f);
-
-        if (moveVec == Vector3.zero)
-            targetSpeed = 0.0f;
-
-        if (!isBorder)
-            transform.position += moveVec * targetSpeed * Time.deltaTime;
-
-        anim.SetBool("isRun", moveVec != Vector3.zero);
-        anim.SetBool("isWalk", wDown);
-
-        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        if (_animationBlend < 0.01f) _animationBlend = 0f;
-
-        if (_hasAnimator)
+        if(isMove)
         {
-            anim.SetFloat(_animIDSpeed, _animationBlend);
-            anim.SetFloat(_animIDX, moveVec.x);
-            anim.SetFloat(_animIDY, moveVec.z);
-        }
+            moveVec = new Vector3(hAxis, 0, vAxis).normalized;
+
+            if (isDodge)
+                moveVec = dodgeVec;
+
+            if (isSwap || !isFireReady && isDead)
+                moveVec = Vector3.zero;
+
+            float targetSpeed = speed * (wDown ? 0.3f : 1f);
+
+            if (moveVec == Vector3.zero)
+                targetSpeed = 0.0f;
+
+            if (!isBorder)
+                transform.position += moveVec * targetSpeed * Time.deltaTime;
+
+            anim.SetBool("isRun", moveVec != Vector3.zero);
+            anim.SetBool("isWalk", wDown);
+
+            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+            if (_animationBlend < 0.01f) _animationBlend = 0f;
+
+            if (_hasAnimator)
+            {
+                anim.SetFloat(_animIDSpeed, _animationBlend);
+                anim.SetFloat(_animIDX, moveVec.x);
+                anim.SetFloat(_animIDY, moveVec.z);
+            }
+        }       
     }
 
     void turn()
@@ -178,7 +182,7 @@ public class Player : MonoBehaviour
         if (!fDown)
             anim.SetBool("Aiming", false);
     }
-
+    /*
     void Jump()
     {
         if(jDown && moveVec == Vector3.zero && !isJump && !isDodge && !isSwap && !isDead)
@@ -192,6 +196,7 @@ public class Player : MonoBehaviour
             jumpSound.Play();
         }
     }
+    */
 
     void Grenade()
     {
@@ -246,11 +251,14 @@ public class Player : MonoBehaviour
 
         if(rDown && !isJump && !isDodge && !isSwap && isFireReady && !isShop && !isDead)
         {
-            anim.SetTrigger("doReload");
+            anim.SetLayerWeight(1, 1f);
+
+            anim.SetBool("Reloading", true);
             isReload = true;
 
             Invoke("ReloadOut", 1.5f);
         }
+
     }
 
     void ReloadOut()
@@ -258,26 +266,32 @@ public class Player : MonoBehaviour
         int reAmmo = ammo < equipWeapon.maxAmmo ? ammo : equipWeapon.maxAmmo;
         equipWeapon.curAmmo = reAmmo;
         ammo -= reAmmo;
+        Debug.Log(reAmmo);
         isReload = false;
+        anim.SetBool("Reloading", false);
     }
     void Dodge()
     {
         if (jDown && moveVec != Vector3.zero && !isJump && !isDodge && !isSwap && !isDead)
         {
+            transform.LookAt(transform.position + moveVec);
+
             dodgeVec = moveVec;
-            speed *= 2;
-            anim.SetTrigger("doDodge");
+            isMove = false;
+            //speed *= 2;
+            anim.SetTrigger("Roll");
 
             isDodge = true;
 
-            Invoke("DodgeOut", 0.4f);
+            Invoke("DodgeOut", 0.6f);
         }
     }
 
     void DodgeOut()
     {
-        speed *= 0.5f;
+        //speed *= 0.5f;
         isDodge = false;
+        isMove = true;
     }
 
     void Swap()
