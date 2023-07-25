@@ -127,8 +127,8 @@ public class Player : MonoBehaviour
 
 
     void Move()
-    {
-        if(isMove)
+    {        
+        if (isMove)
         {
             moveVec = new Vector3(hAxis, 0, vAxis).normalized;
 
@@ -167,7 +167,7 @@ public class Player : MonoBehaviour
         transform.LookAt(transform.position + moveVec);
 
         //#2. 마우스에 의한 회전
-        if (fDown && !isDead)
+        if (fDown && !isDead && !isDodge)
         {
             Ray ray = follwCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -274,8 +274,6 @@ public class Player : MonoBehaviour
     {
         if (jDown && moveVec != Vector3.zero && !isJump && !isDodge && !isSwap && !isDead)
         {
-            transform.LookAt(transform.position + moveVec);
-
             dodgeVec = moveVec;
             isMove = false;
             //speed *= 2;
