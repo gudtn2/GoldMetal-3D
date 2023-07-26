@@ -138,7 +138,7 @@ public class Player : MonoBehaviour
             if (isSwap || !isFireReady && isDead)
                 moveVec = Vector3.zero;
 
-            float targetSpeed = speed * (wDown ? 0.3f : 1f);
+            float targetSpeed = speed * (wDown || fDown ? 0.3f : 1f);
 
             if (moveVec == Vector3.zero)
                 targetSpeed = 0.0f;
@@ -167,7 +167,7 @@ public class Player : MonoBehaviour
         transform.LookAt(transform.position + moveVec);
 
         //#2. 마우스에 의한 회전
-        if (fDown && !isDead && !isDodge)
+        if (fDown && !isDead && !isDodge && !jDown)
         {
             Ray ray = follwCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -230,7 +230,7 @@ public class Player : MonoBehaviour
         fireDelay += Time.deltaTime;
         isFireReady = equipWeapon.rate < fireDelay;
 
-        if(fDown && isFireReady && !isDodge && !isSwap && !isShop && !isDead)
+        if(fDown && isFireReady && !isDodge && !isSwap && !isShop && !isDead && !isReload)
         {
             equipWeapon.Use();
             anim.SetTrigger(equipWeapon.type == Weapon.Type.Melee ? "doSwing" : "doShot");
@@ -249,7 +249,7 @@ public class Player : MonoBehaviour
         if (ammo == 0)
             return;
 
-        if(rDown && !isJump && !isDodge && !isSwap && isFireReady && !isShop && !isDead)
+        if(rDown && !isJump && !isDodge && !isSwap && isFireReady && !isShop && !isDead && !isReload)
         {
             anim.SetLayerWeight(1, 1f);
 
@@ -263,9 +263,10 @@ public class Player : MonoBehaviour
 
     void ReloadOut()
     {
+        ammo += equipWeapon.curAmmo;
         int reAmmo = ammo < equipWeapon.maxAmmo ? ammo : equipWeapon.maxAmmo;
-        equipWeapon.curAmmo = reAmmo;
         ammo -= reAmmo;
+        equipWeapon.curAmmo = reAmmo;
         Debug.Log(reAmmo);
         isReload = false;
         anim.SetBool("Reloading", false);
@@ -278,10 +279,10 @@ public class Player : MonoBehaviour
             isMove = false;
             //speed *= 2;
             anim.SetTrigger("Roll");
-
             isDodge = true;
+            rigid.AddForce(transform.forward * 15, ForceMode.Impulse);
 
-            Invoke("DodgeOut", 0.6f);
+            Invoke("DodgeOut", 0.3f);
         }
     }
 
