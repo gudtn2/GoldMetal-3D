@@ -108,13 +108,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127044}
-  m_LocalRotation: {x: 0.70710695, y: -0.000000026341775, z: 0.0000000052683595, w: 0.70710665}
-  m_LocalPosition: {x: 0.00000016905268, y: -0.73703206, z: 0.07459629}
-  m_LocalScale: {x: 1, y: 0.99999976, z: 0.99999964}
+  m_LocalRotation: {x: -0.68668884, y: 0.022950541, z: -0.063717015, w: -0.72379005}
+  m_LocalPosition: {x: 0.51292443, y: 0.26123726, z: 0.13823149}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 472368}
-  m_RootOrder: 0
+  m_Father: {fileID: 427246}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &129470
 GameObject:
@@ -491,6 +491,7 @@ Transform:
   - {fileID: 491304}
   - {fileID: 414936}
   - {fileID: 440554}
+  - {fileID: 481140}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -510,7 +511,9 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tFrom animation clip 'mixamo.com'"
   m_HasTransformHierarchy: 0
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -541,8 +544,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.0000004, z: 1.0000002}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 481140}
+  m_Children: []
   m_Father: {fileID: 464274}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

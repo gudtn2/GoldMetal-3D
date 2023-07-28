@@ -138,7 +138,7 @@ public class Player : MonoBehaviour
             if (isSwap || !isFireReady && isDead)
                 moveVec = Vector3.zero;
 
-            float targetSpeed = speed * (wDown || fDown ? 0.3f : 1f);
+            float targetSpeed = speed * (wDown || fDown || isReload ? 0.3f : 1f);
 
             if (moveVec == Vector3.zero)
                 targetSpeed = 0.0f;
@@ -218,8 +218,9 @@ public class Player : MonoBehaviour
                 rigidGrenade.AddTorque(Vector3.back * 10, ForceMode.Impulse);
 
                 hasGrenades--;
-                grenades[hasGrenades].SetActive(false);
+                //grenades[hasGrenades].SetActive(false);
             }
+            anim.SetTrigger("Throw");
         }
     }
     void Attack()
@@ -249,7 +250,10 @@ public class Player : MonoBehaviour
         if (ammo == 0)
             return;
 
-        if(rDown && !isJump && !isDodge && !isSwap && isFireReady && !isShop && !isDead && !isReload)
+        if (equipWeapon.curAmmo == equipWeapon.maxAmmo)
+            return;
+
+        if(rDown || equipWeapon.curAmmo == 0 && !isJump && !isDodge && !isSwap && isFireReady && !isShop && !isDead && !isReload)
         {
             anim.SetLayerWeight(1, 1f);
 
