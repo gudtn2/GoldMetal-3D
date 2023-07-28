@@ -10,12 +10,10 @@ public class Grenade : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(Explosion());
     }
 
     IEnumerator Explosion()
-    {
-        yield return new WaitForSeconds(3f);
+    { 
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
         meshObj.SetActive(false);
@@ -28,5 +26,15 @@ public class Grenade : MonoBehaviour
             hitObj.transform.GetComponent<Enemy>().HitByGrenade(transform.position);
         }
         Destroy(gameObject, 5);
+        yield return null;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Floor")
+        {
+            StartCoroutine(Explosion());
+
+        }
     }
 }

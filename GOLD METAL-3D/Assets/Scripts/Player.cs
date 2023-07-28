@@ -61,6 +61,8 @@ public class Player : MonoBehaviour
 
     Vector3 moveVec;
     Vector3 dodgeVec;
+    [SerializeField]
+    Transform GrenadePos;
 
     Rigidbody rigid;
     Animator anim;
@@ -207,12 +209,13 @@ public class Player : MonoBehaviour
         {
             Ray ray = follwCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
+            anim.SetLayerWeight(2, 1f);
             if (Physics.Raycast(ray, out rayHit, 100)) // out : return처럼 값을 반환해줌
             {
                 Vector3 nextVec = rayHit.point - transform.position;
                 nextVec.y = 10;
 
-                GameObject instantGrenade = Instantiate(grenadeObj, transform.position, transform.rotation);
+                GameObject instantGrenade = Instantiate(grenadeObj, GrenadePos.position, transform.rotation);
                 Rigidbody rigidGrenade = instantGrenade.GetComponent<Rigidbody>();
                 rigidGrenade.AddForce(nextVec, ForceMode.Impulse);
                 rigidGrenade.AddTorque(Vector3.back * 10, ForceMode.Impulse);
@@ -234,7 +237,7 @@ public class Player : MonoBehaviour
         if(fDown && isFireReady && !isDodge && !isSwap && !isShop && !isDead && !isReload)
         {
             equipWeapon.Use();
-            anim.SetTrigger(equipWeapon.type == Weapon.Type.Melee ? "doSwing" : "doShot");
+            anim.SetTrigger(equipWeapon.type == Weapon.Type.Melee ? "doSwing" : "Shoot");
             fireDelay = 0;
         }
     }
@@ -286,7 +289,7 @@ public class Player : MonoBehaviour
             isDodge = true;
             rigid.AddForce(transform.forward * 15, ForceMode.Impulse);
 
-            Invoke("DodgeOut", 0.3f);
+            Invoke("DodgeOut", 0.5f);
         }
     }
 
