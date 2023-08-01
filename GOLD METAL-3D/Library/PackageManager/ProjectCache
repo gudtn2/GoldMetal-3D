@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638257561075400484
-    m_Hash: 1639653722
+      ticks: 638264579652117365
+    m_Hash: 2554626119
   m_LockFileStatus:
     m_FilePath: C:/Users/SGA/Desktop/GoldMetal-3D/GOLD METAL-3D/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638257561075405576
-    m_Hash: 3186120509
+      ticks: 638264579652177365
+    m_Hash: 605778444
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:

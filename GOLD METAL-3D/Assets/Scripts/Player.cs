@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
         transform.LookAt(transform.position + moveVec);
 
         //#2. 마우스에 의한 회전
-        if (fDown && !isDead && !isDodge && !jDown)
+        if (fDown || gDown && !isDead && !isDodge && !jDown)
         {
             Ray ray = follwCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;

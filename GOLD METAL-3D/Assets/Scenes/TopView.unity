@@ -348,7 +348,7 @@ MonoBehaviour:
   - {fileID: 1664489163}
   hasWeapons: 01
   grenades: []
-  hasGrenades: 3
+  hasGrenades: 100
   grenadeObj: {fileID: 1008119323600105093, guid: 0a2992c59727b2c41bcc4ca538384033, type: 3}
   follwCamera: {fileID: 1609524595}
   manager: {fileID: 0}
@@ -360,7 +360,7 @@ MonoBehaviour:
   maxAmmo: 999
   maxCoin: 0
   maxHealth: 0
-  maxHasGrenades: 3
+  maxHasGrenades: 100
   GrenadePos: {fileID: 671559763}
   equipWeapon: {fileID: 1664489164}
 --- !u!4 &1267895701 stripped
