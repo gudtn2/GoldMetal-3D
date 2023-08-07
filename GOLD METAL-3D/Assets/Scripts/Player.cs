@@ -293,9 +293,9 @@ public class Player : MonoBehaviour
         //speed *= 2;
         anim.SetTrigger("Roll");
         isDodge = true;
-        rigid.AddForce(transform.forward * 15, ForceMode.Impulse);
+        rigid.velocity = transform.forward * 10;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
 
         DodgeOut();
     }
