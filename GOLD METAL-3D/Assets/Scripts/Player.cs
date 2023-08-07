@@ -282,15 +282,22 @@ public class Player : MonoBehaviour
     {
         if (jDown && moveVec != Vector3.zero && !isJump && !isDodge && !isSwap && !isDead)
         {
-            dodgeVec = moveVec;
-            isMove = false;
-            //speed *= 2;
-            anim.SetTrigger("Roll");
-            isDodge = true;
-            rigid.AddForce(transform.forward * 15, ForceMode.Impulse);
-
-            Invoke("DodgeOut", 0.5f);
+            StartCoroutine("OnDodge");
         }
+    }
+
+    IEnumerator OnDodge()
+    {
+        dodgeVec = moveVec;
+        isMove = false;
+        //speed *= 2;
+        anim.SetTrigger("Roll");
+        isDodge = true;
+        rigid.AddForce(transform.forward * 15, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(0.5f);
+
+        DodgeOut();
     }
 
     void DodgeOut()
