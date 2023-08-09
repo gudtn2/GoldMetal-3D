@@ -13,9 +13,10 @@ public class Grenade : MonoBehaviour
     }
 
     IEnumerator Explosion()
-    { 
+    {
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
+        rigid.isKinematic = true;
         meshObj.SetActive(false);
         effectObj.SetActive(true);
 

@@ -209,7 +209,7 @@ public class Player : MonoBehaviour
         {
             Ray ray = follwCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
-            anim.SetLayerWeight(2, 1f);
+            anim.SetLayerWeight(2, 0.8f);
             if (Physics.Raycast(ray, out rayHit, 100)) // out : return처럼 값을 반환해줌
             {
                 Vector3 nextVec = rayHit.point - transform.position;
