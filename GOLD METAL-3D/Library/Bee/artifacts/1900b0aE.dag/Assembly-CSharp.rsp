@@ -382,6 +382,7 @@
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/Player2.cs"
 "Assets/Scripts/Shop.cs"
+"Assets/Scripts/Skill.cs"
 "Assets/Scripts/SphericalSkillRange.cs"
 "Assets/Scripts/StartZone.cs"
 "Assets/Scripts/Weapon.cs"
