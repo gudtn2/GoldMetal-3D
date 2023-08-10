@@ -329,9 +329,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310185387}
   m_CullTransparentMesh: 1
+--- !u!114 &335199732 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6968924997309009119, guid: d6852d0bd9207174ebc0680d50559eae, type: 3}
+  m_PrefabInstance: {fileID: 6397332228925802608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &396190284 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6397332229086423612, guid: d6852d0bd9207174ebc0680d50559eae, type: 3}
+  m_PrefabInstance: {fileID: 6397332228925802608}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &643994542 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 8548885913471216610, guid: d6852d0bd9207174ebc0680d50559eae, type: 3}
   m_PrefabInstance: {fileID: 6397332228925802608}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1311434636
@@ -1012,6 +1028,14 @@ PrefabInstance:
       propertyPath: SkillImage1
       value: 
       objectReference: {fileID: 310185389}
+    - target: {fileID: -5230885322919799804, guid: d6852d0bd9207174ebc0680d50559eae, type: 3}
+      propertyPath: skill1Canvas
+      value: 
+      objectReference: {fileID: 643994542}
+    - target: {fileID: -5230885322919799804, guid: d6852d0bd9207174ebc0680d50559eae, type: 3}
+      propertyPath: skill1Indicator
+      value: 
+      objectReference: {fileID: 335199732}
     - target: {fileID: 6397332229086423612, guid: d6852d0bd9207174ebc0680d50559eae, type: 3}
       propertyPath: m_RootOrder
       value: 3

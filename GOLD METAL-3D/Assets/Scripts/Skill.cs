@@ -11,31 +11,78 @@ public class Skill : MonoBehaviour
     public KeyCode skillKey;
     public float skillCoolDown = 5f;
 
+    public Canvas skill1Canvas;
+    public Image skill1Indicator;
+    public float maxAbility1Distance = 7;
+
     private bool isSkill1CoolDown = false;
 
     private float currentSkill1CoolDown;
+
+    private Vector3 position;
+    private RaycastHit hit;
+    private Ray ray;
     // Start is called before the first frame update
     void Start()
     {
         SkillImage1.fillAmount = 0;
 
         SkillText1.text = "";
+        skill1Indicator.enabled = false;
+
+        skill1Canvas.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
         Skill1Input();
 
         SkillCoolDown(ref currentSkill1CoolDown, skillCoolDown, ref isSkill1CoolDown, SkillImage1, SkillText1);
+
+        Ability1Canvas();
+    }
+
+    private void Ability1Canvas()
+    {
+        int layerMask = ~LayerMask.GetMask("Player");
+
+        if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        {
+            if(hit.collider.gameObject != this.gameObject)
+            {
+                position = hit.point;
+            }
+        }
+
+        var hitPosDir = (hit.point - transform.position).normalized;
+        float distance = Vector3.Distance(hit.point, transform.position);
+        distance = Mathf.Min(distance, maxAbility1Distance);
+
+        var newHitPos = transform.position + hitPosDir * distance;
+        skill1Canvas.transform.position = (newHitPos);
     }
 
     private void Skill1Input()
     {
         if(Input.GetKeyDown(skillKey) && !isSkill1CoolDown)
         {
+            skill1Canvas.enabled = true;
+            skill1Indicator.enabled = true;
+
+            Cursor.visible = false;
+        }
+        if (skill1Canvas.enabled && Input.GetMouseButtonDown(0))
+        {
             isSkill1CoolDown = true;
             currentSkill1CoolDown = skillCoolDown;
+
+            skill1Canvas.enabled = false;
+            skill1Indicator.enabled = false;
+
+            Cursor.visible = true;
         }
     }
 
