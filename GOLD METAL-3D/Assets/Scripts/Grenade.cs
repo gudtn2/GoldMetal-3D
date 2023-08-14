@@ -12,7 +12,7 @@ public class Grenade : MonoBehaviour
     {
     }
 
-    IEnumerator Explosion()
+    public IEnumerator Explosion()
     {
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;

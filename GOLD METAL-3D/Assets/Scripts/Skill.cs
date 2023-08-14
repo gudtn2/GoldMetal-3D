@@ -67,6 +67,7 @@ public class Skill : MonoBehaviour
 
     private void Skill1Input()
     {
+        // 스킬 범위 불러오기
         if(Input.GetKeyDown(skillKey) && !isSkill1CoolDown)
         {
             skill1Canvas.enabled = true;
@@ -74,9 +75,11 @@ public class Skill : MonoBehaviour
 
             Cursor.visible = false;
         }
+        // 스킬 실행
         if (skill1Canvas.enabled && Input.GetMouseButtonDown(0))
-        {
+        {            
             isSkill1CoolDown = true;
+
             currentSkill1CoolDown = skillCoolDown;
 
             skill1Canvas.enabled = false;

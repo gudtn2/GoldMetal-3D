@@ -787,8 +787,6 @@ MonoBehaviour:
   trailEffect: {fileID: 1499290835}
   bulletPos: {fileID: 0}
   bullet: {fileID: 0}
-  bulletCasePos: {fileID: 0}
-  bulletCase: {fileID: 0}
 --- !u!1001 &125025740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7519,8 +7517,6 @@ MonoBehaviour:
   trailEffect: {fileID: 0}
   bulletPos: {fileID: 187967513}
   bullet: {fileID: 3161719691936725763, guid: 961e0928af2b986479f72d06c1f334fc, type: 3}
-  bulletCasePos: {fileID: 567456800}
-  bulletCase: {fileID: 7607201547547009387, guid: 4cff6a64d3a531b4792e19fb9b091fa5, type: 3}
 --- !u!1 &537859387
 GameObject:
   m_ObjectHideFlags: 0
@@ -33142,6 +33138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  SpeedChangeRate: 10
   weapons:
   - {fileID: 124691241}
   - {fileID: 504217495}
@@ -33165,6 +33162,7 @@ MonoBehaviour:
   maxCoin: 99999
   maxHealth: 100
   maxHasGrenades: 4
+  GrenadePos: {fileID: 0}
   equipWeapon: {fileID: 0}
 --- !u!136 &1579103535
 CapsuleCollider:
@@ -34166,8 +34164,6 @@ MonoBehaviour:
   trailEffect: {fileID: 0}
   bulletPos: {fileID: 187967513}
   bullet: {fileID: 7019593970837594801, guid: 0cab3c4742a9ebd4095819f1591a14c3, type: 3}
-  bulletCasePos: {fileID: 1859434106}
-  bulletCase: {fileID: 7607201547547009387, guid: 4cff6a64d3a531b4792e19fb9b091fa5, type: 3}
 --- !u!1 &1708706879
 GameObject:
   m_ObjectHideFlags: 0
