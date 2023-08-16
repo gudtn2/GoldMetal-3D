@@ -9,7 +9,6 @@ public class Boss : Enemy
     public Transform missilePortA;
     public Transform missilePortB;
     public bool isLook;
-
     Vector3 lookVec;
     Vector3 tauntVec;
 
@@ -53,14 +52,12 @@ public class Boss : Enemy
             // break문 생략하여 확률조정
             case 0:
             case 1:
-                StartCoroutine(MissileShot());
+                //StartCoroutine(MissileShot());
                 // 미사일 발사 패턴
-                break;
             case 2:
             case 3:
-                StartCoroutine(RockShot());
+                //StartCoroutine(RockShot());
                 // 돌 굴러가는 패턴
-                break;
             case 4:
                 StartCoroutine(Taunt());
                 // 점프 공격 패턴
@@ -101,7 +98,6 @@ public class Boss : Enemy
     IEnumerator Taunt()
     {
         tauntVec = target.position + lookVec;
-
         isLook = false;
         nav.isStopped = false;
         boxCollider.enabled = false;
