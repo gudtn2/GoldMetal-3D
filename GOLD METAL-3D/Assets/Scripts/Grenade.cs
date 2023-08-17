@@ -20,7 +20,7 @@ public class Grenade : MonoBehaviour
         meshObj.SetActive(false);
         effectObj.SetActive(true);
 
-        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, 15, Vector3.up, 0f, LayerMask.GetMask("Enemy"));
+        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, 2, Vector3.up, 0f, LayerMask.GetMask("Enemy"));
 
         foreach(RaycastHit hitObj in rayHits)
         {

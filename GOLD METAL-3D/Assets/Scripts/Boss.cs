@@ -6,8 +6,10 @@ using UnityEngine.AI;
 public class Boss : Enemy
 {
     public GameObject missile;
+    public GameObject Rock;
     public Transform missilePortA;
     public Transform missilePortB;
+    public Transform ThrowPos;
     public bool isLook;
     Vector3 lookVec;
     Vector3 tauntVec;
@@ -59,7 +61,9 @@ public class Boss : Enemy
                 //StartCoroutine(RockShot());
                 // 돌 굴러가는 패턴
             case 4:
-                StartCoroutine(Taunt());
+                StartCoroutine(ThrowAttack());
+                //StartCoroutine(Taunt());
+                //StartCoroutine(ComboAttack());
                 // 점프 공격 패턴
                 break;
         }
@@ -77,8 +81,25 @@ public class Boss : Enemy
         GameObject instantMissileB = Instantiate(missile, missilePortB.position, missilePortB.rotation);
         BossMissile bossMissileB = instantMissileB.GetComponent<BossMissile>();
         bossMissileB.target = target;
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(Think());
+    }
+
+    IEnumerator ThrowAttack()
+    {
+        // **** 수정해야함
+
+        isLook = true;
+        anim.SetTrigger("doShot");
+        yield return new WaitForSeconds(0.2f);
+        GameObject instantRock = Instantiate(Rock, ThrowPos.position, ThrowPos.rotation);
+        Rigidbody rigidRock = instantRock.GetComponent<Rigidbody>();
+        rigidRock.AddForce(target.position, ForceMode.Impulse);
+        //rigidRock.AddTorque(Vector3.back * 10, ForceMode.Impulse);
 
         yield return new WaitForSeconds(2f);
+        isLook = false;
 
         StartCoroutine(Think());
     }
@@ -92,11 +113,12 @@ public class Boss : Enemy
 
         isLook = true;
         StartCoroutine(Think());
-
     }
 
     IEnumerator Taunt()
     {
+        // **** 높이 수정해야함
+
         tauntVec = target.position + lookVec;
         isLook = false;
         nav.isStopped = false;
@@ -114,6 +136,34 @@ public class Boss : Enemy
         isLook = true;
         nav.isStopped = true;
         boxCollider.enabled = true;
+        StartCoroutine(Think());
+    }
+
+    IEnumerator ComboAttack()
+    {
+        //** collider 추가해야함
+        isLook = false;
+
+        anim.SetTrigger("doShout");
+
+        yield return new WaitForSeconds(2.0f);
+
+        isLook = true;
+
+
+        yield return new WaitForSeconds(0.5f);
+        anim.SetTrigger("doCombo");
+        //nav.isStopped = false;
+        meleeArea.enabled = true;
+        rigid.velocity = transform.forward * 30;
+        yield return new WaitForSeconds(1.0f);
+        rigid.velocity = transform.forward * 30;
+        yield return new WaitForSeconds(1.0f);
+        rigid.velocity = transform.forward * 30;
+
+        yield return new WaitForSeconds(2.0f);
+        meleeArea.enabled = false;
+        nav.isStopped = true;
         StartCoroutine(Think());
     }
 }
