@@ -55,15 +55,17 @@ public class Boss : Enemy
             case 0:
             case 1:
                 //StartCoroutine(MissileShot());
-                // 미사일 발사 패턴
+                StartCoroutine(ThrowAttack());
+                break;
+            // 미사일 발사 패턴
             case 2:
             case 3:
+                StartCoroutine(Taunt());
                 //StartCoroutine(RockShot());
-                // 돌 굴러가는 패턴
+                break;
+            // 돌 굴러가는 패턴
             case 4:
-                StartCoroutine(ThrowAttack());
-                //StartCoroutine(Taunt());
-                //StartCoroutine(ComboAttack());
+                StartCoroutine(ComboAttack());
                 // 점프 공격 패턴
                 break;
         }
@@ -92,14 +94,35 @@ public class Boss : Enemy
 
         isLook = true;
         anim.SetTrigger("doShot");
-        yield return new WaitForSeconds(0.2f);
-        GameObject instantRock = Instantiate(Rock, ThrowPos.position, ThrowPos.rotation);
+        yield return new WaitForSeconds(0.6f);
+        isLook = false;
+        GameObject instantRock = Instantiate(Rock, ThrowPos.position, Quaternion.LookRotation(target.position - lookVec));
         Rigidbody rigidRock = instantRock.GetComponent<Rigidbody>();
-        rigidRock.AddForce(target.position, ForceMode.Impulse);
+        float targetDistance = Vector3.Distance(instantRock.transform.position, target.position);
+        float projectile_Velocity = targetDistance / (Mathf.Sin(2 * 45.0f * Mathf.Deg2Rad));
+        float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(45.0f * Mathf.Deg2Rad);
+        float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(45.0f * Mathf.Deg2Rad);
+
+        // Calculate flight time.
+        float flightDuration = targetDistance / Vx;
+
+        // Rotate projectile to face the target.
+        instantRock.transform.rotation = Quaternion.LookRotation(target.position - instantRock.transform.position);
+        Debug.Log(target.position);
+        float elapse_time = 0;
+
+        while (elapse_time < flightDuration)
+        {
+            instantRock.transform.Translate(0, (Vy - (elapse_time)) * Time.deltaTime, Vx * (Time.deltaTime * 5));
+
+            elapse_time += Time.deltaTime;
+
+            yield return null;
+        }
+            //rigidRock.velocity = rigidRock.transform.forward * 20;
         //rigidRock.AddTorque(Vector3.back * 10, ForceMode.Impulse);
 
-        yield return new WaitForSeconds(2f);
-        isLook = false;
+        yield return new WaitForSeconds(0.5f);
 
         StartCoroutine(Think());
     }
@@ -146,22 +169,25 @@ public class Boss : Enemy
 
         anim.SetTrigger("doShout");
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.4f);
 
         isLook = true;
 
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
+        isLook = false;
         anim.SetTrigger("doCombo");
         //nav.isStopped = false;
         meleeArea.enabled = true;
-        rigid.velocity = transform.forward * 30;
+        rigid.velocity = transform.forward * 7;
         yield return new WaitForSeconds(1.0f);
-        rigid.velocity = transform.forward * 30;
+        rigid.velocity = transform.forward * 7;
         yield return new WaitForSeconds(1.0f);
-        rigid.velocity = transform.forward * 30;
-
-        yield return new WaitForSeconds(2.0f);
+        rigid.velocity = transform.forward * 7;
+        yield return new WaitForSeconds(1.0f);
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
+        yield return new WaitForSeconds(1.0f);
         meleeArea.enabled = false;
         nav.isStopped = true;
         StartCoroutine(Think());

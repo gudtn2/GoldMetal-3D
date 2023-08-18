@@ -543,7 +543,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553387629}
-  m_LocalRotation: {x: 0.20338663, y: 0.6763039, z: 0.66296667, w: -0.24843936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.691, y: 0.235, z: -0.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1195,11 +1195,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4300923812136499496, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.1
+      value: 6.21
       objectReference: {fileID: 0}
     - target: {fileID: 4300923812136499496, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.78
       objectReference: {fileID: 0}
     - target: {fileID: 4300923812136499496, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1237,9 +1237,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Titan
       objectReference: {fileID: 0}
+    - target: {fileID: 8820018863887267728, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8820018863887267729, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820018864711220400, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
+      propertyPath: m_Size.x
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820018864711220400, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820018864711220400, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
+      propertyPath: m_Center.y
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 8820018864711220400, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
       propertyPath: m_IsTrigger
@@ -1257,6 +1273,18 @@ PrefabInstance:
       propertyPath: ThrowPos
       value: 
       objectReference: {fileID: 1553387630}
+    - target: {fileID: 8820018864711220405, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
+      propertyPath: curHealth
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820018864711220405, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
+      propertyPath: maxHealth
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820018864711220406, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4300923812146108058, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 69b3586aa78bd5d40b5f1c6d0f6c62a6, type: 3}
