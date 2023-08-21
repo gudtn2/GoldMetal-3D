@@ -8,7 +8,13 @@ public class BossThrowObject : Bullet
 
     private void Awake()
     {
-        
+        rigid = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        //rigid.AddTorque(transform.right * Time.deltaTime, ForceMode.Acceleration);
+
     }
 
     private void OnTriggerEnter(Collider other)

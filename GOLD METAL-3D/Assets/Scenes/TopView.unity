@@ -1084,6 +1084,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1738414458632952930, guid: 31e0867b0599184449e752f3cff8ef9f, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5894409862100313687, guid: 31e0867b0599184449e752f3cff8ef9f, type: 3}
+      propertyPath: Rock
+      value: 
+      objectReference: {fileID: 1462098656650224717, guid: f4f15e2338d866d4aa0af9ae6fbc42ca, type: 3}
     - target: {fileID: 5894409862100313687, guid: 31e0867b0599184449e752f3cff8ef9f, type: 3}
       propertyPath: target
       value: 

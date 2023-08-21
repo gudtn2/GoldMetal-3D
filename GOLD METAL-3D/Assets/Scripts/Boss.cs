@@ -57,18 +57,18 @@ public class Boss : Enemy
             // break문 생략하여 확률조정
             case 0:
             case 1:
-                //StartCoroutine(MissileShot());
-                StartCoroutine(ThrowAttack());
-                break;
+                //StartCoroutine(ThrowAttack());
+                //break;
             // 미사일 발사 패턴
             case 2:
             case 3:
-                StartCoroutine(Taunt());
-                //StartCoroutine(RockShot());
-                break;
+                //StartCoroutine(Taunt());
+                //break;
             // 돌 굴러가는 패턴
             case 4:
-                StartCoroutine(ComboAttack());
+                //StartCoroutine(ComboAttack());
+                StartCoroutine(Taunt());
+
                 // 점프 공격 패턴
                 break;
         }
@@ -102,28 +102,31 @@ public class Boss : Enemy
         GameObject instantRock = Instantiate(Rock, ThrowPos.position, Quaternion.LookRotation(target.position - lookVec));
         Rigidbody rigidRock = instantRock.GetComponent<Rigidbody>();
         float targetDistance = Vector3.Distance(instantRock.transform.position, target.position);
+
+        // 지정된 각도에서 물체를 타겟에 던지는데 필요한 속도를 계산
         float projectile_Velocity = targetDistance / (Mathf.Sin(2 * 45.0f * Mathf.Deg2Rad));
+        // 속도의 XY값 계산
         float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(45.0f * Mathf.Deg2Rad);
         float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(45.0f * Mathf.Deg2Rad);
 
-        // Calculate flight time.
+        // 비행 시간 계산
         float flightDuration = targetDistance / Vx;
 
-        // Rotate projectile to face the target.
+        // 타겟 방향으로 발사체를 회전
         instantRock.transform.rotation = Quaternion.LookRotation(target.position - instantRock.transform.position);
         Debug.Log(target.position);
         float elapse_time = 0;
 
         while (elapse_time < flightDuration)
         {
-            instantRock.transform.Translate(0, (Vy - (elapse_time)) * Time.deltaTime, Vx * (Time.deltaTime * 5));
+            instantRock.transform.Translate(0, (Vy - (9.81f * elapse_time)) * Time.deltaTime, Vx * (Time.deltaTime * 5));
 
             elapse_time += Time.deltaTime;
 
             yield return null;
         }
             //rigidRock.velocity = rigidRock.transform.forward * 20;
-        //rigidRock.AddTorque(Vector3.back * 10, ForceMode.Impulse);
+        rigidRock.AddTorque(Vector3.back * 10, ForceMode.Impulse);
 
         yield return new WaitForSeconds(0.5f);
 
