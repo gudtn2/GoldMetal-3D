@@ -371,6 +371,7 @@
 "Assets/Scripts/Boss.cs"
 "Assets/Scripts/BossMissile.cs"
 "Assets/Scripts/BossRock.cs"
+"Assets/Scripts/BossThrowObject.cs"
 "Assets/Scripts/Bullet.cs"
 "Assets/Scripts/Enemy.cs"
 "Assets/Scripts/Follow.cs"

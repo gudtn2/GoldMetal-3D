@@ -7,6 +7,9 @@ public class Boss : Enemy
 {
     public GameObject missile;
     public GameObject Rock;
+    public BoxCollider meleeCollider1;
+    public BoxCollider meleeCollider2;
+    public BoxCollider meleeCollider3;
     public Transform missilePortA;
     public Transform missilePortB;
     public Transform ThrowPos;
@@ -179,12 +182,20 @@ public class Boss : Enemy
         anim.SetTrigger("doCombo");
         //nav.isStopped = false;
         meleeArea.enabled = true;
-        rigid.velocity = transform.forward * 7;
+        tauntVec = target.position + lookVec;
+        nav.isStopped = false;
+        meleeCollider1.enabled = true;
+        //rigid.velocity = transform.forward * 7;
         yield return new WaitForSeconds(1.0f);
-        rigid.velocity = transform.forward * 7;
+        meleeCollider1.enabled = false;
+        meleeCollider2.enabled = true;
+        //rigid.velocity = transform.forward * 7;
         yield return new WaitForSeconds(1.0f);
-        rigid.velocity = transform.forward * 7;
+        meleeCollider2.enabled = false;
+        meleeCollider3.enabled = true;
+        //rigid.velocity = transform.forward * 7;
         yield return new WaitForSeconds(1.0f);
+        meleeCollider3.enabled = false;
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
         yield return new WaitForSeconds(1.0f);
