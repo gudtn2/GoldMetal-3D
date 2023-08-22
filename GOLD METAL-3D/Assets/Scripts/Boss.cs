@@ -179,7 +179,6 @@ public class Boss : Enemy
 
         isLook = true;
 
-
         yield return new WaitForSeconds(0.1f);
         isLook = false;
         anim.SetTrigger("doCombo");
@@ -199,8 +198,6 @@ public class Boss : Enemy
         //rigid.velocity = transform.forward * 7;
         yield return new WaitForSeconds(1.0f);
         meleeCollider3.enabled = false;
-        rigid.velocity = Vector3.zero;
-        rigid.angularVelocity = Vector3.zero;
         yield return new WaitForSeconds(1.0f);
         meleeArea.enabled = false;
         nav.isStopped = true;
