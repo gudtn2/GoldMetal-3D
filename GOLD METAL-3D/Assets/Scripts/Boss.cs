@@ -160,7 +160,7 @@ public class Boss : Enemy
         yield return new WaitForSeconds(0.5f);
         meleeArea.enabled = false;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         isLook = true;
         nav.isStopped = true;
